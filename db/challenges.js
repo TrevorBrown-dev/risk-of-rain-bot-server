@@ -1,3 +1,6 @@
+import survivors from './survivors';
+import skills from './skills';
+import items from './items';
 export default [
     {
         name: '...To Be Left Alone',
