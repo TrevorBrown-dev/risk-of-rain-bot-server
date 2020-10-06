@@ -5,5 +5,6 @@ import getEnvironment from './getEnvironment.js';
 import getDrone from './getDrone.js';
 import getInteractable from './getInteractable';
 import getChallenge from './getChallenge';
+import getSkill from './getSkill';
 
-export { getItem, getMonster, getSurvivor, getEnvironment, getInteractable, getDrone, getChallenge };
+export { getItem, getMonster, getSurvivor, getEnvironment, getInteractable, getDrone, getChallenge, getSkill };

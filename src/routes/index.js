@@ -1,14 +1,14 @@
 import Route from './Route';
 import { items, challenges, monsters, interactables, environments, drones, artifacts, survivors, skills } from '../db';
-export const itemsRoute = new Route('items', items).getRouter();
-export const interactablesRoute = new Route('interactables', interactables).getRouter();
-export const dronesRoute = new Route('drones', drones).getRouter();
-export const artifactsRoute = new Route('artifacts', artifacts).getRouter();
-export const challengesRoute = new Route('challenges', challenges).getRouter();
-export const monstersRoute = new Route('monsters', monsters).getRouter();
-export const environmentsRoute = new Route('environments', environments).getRouter();
-export const survivorsRoute = new Route('survivors', survivors).getRouter();
-export const skillsRoute = new Route('skills', skills).getRouter();
+export const itemsRoute = new Route({ route: 'items', target: '', database: items }).getRouter();
+export const interactablesRoute = new Route({ route: 'interactables', target: '', database: [interactables] }).getRouter();
+export const dronesRoute = new Route({ route: 'drones', target: '', database: [drones] }).getRouter();
+export const artifactsRoute = new Route({ route: 'artifacts', target: '', database: [artifacts] }).getRouter();
+export const challengesRoute = new Route({ route: 'challenges', target: '', database: [challenges] }).getRouter();
+export const monstersRoute = new Route({ route: 'monsters', target: '', database: [monsters] }).getRouter();
+export const environmentsRoute = new Route({ route: 'environments', target: '', database: [environments] }).getRouter();
+export const survivorsRoute = new Route({ route: 'survivors', database: [survivors] }).getRouter();
+export const skillsRoute = new Route({ route: 'skills', target: '', wikiRoute: 'survivors', database: [skills, survivors] }).getRouter();
 
 const routes = [itemsRoute, dronesRoute, interactablesRoute, artifactsRoute, challengesRoute, monstersRoute, environmentsRoute, survivorsRoute, skillsRoute];
 export default routes;

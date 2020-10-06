@@ -1,21 +1,22 @@
-import { getDrone, getEnvironment, getInteractable, getItem, getMonster, getSurvivor, getChallenge } from './index';
-const fetchData = async (route, name) => {
-    switch (route) {
+import { getDrone, getEnvironment, getInteractable, getItem, getMonster, getSurvivor, getChallenge, getSkill } from './index';
+const fetchData = async (params) => {
+    switch (params.route) {
         case 'items':
-            return await getItem(name);
+            return await getItem(params);
         case 'interactables':
-            return await getInteractable(name);
+            return await getInteractable(params);
         case 'monsters':
-            return await getMonster(name);
+            return await getMonster(params);
         case 'survivors':
-            return await getSurvivor(name);
+            return await getSurvivor(params);
         case 'drones':
-            return await getDrone(name);
+            return await getDrone(params);
         case 'environments':
-            return await getEnvironment(name);
+            return await getEnvironment(params);
         case 'challenges':
-            return await getChallenge(name);
-        // case 'artifacts':
+            return await getChallenge(params);
+        case 'skills':
+            return await getSkill(params);
     }
 };
 
