@@ -46,15 +46,18 @@ const formatText = (text) => {
     };
 };
 
-const getDrone = async (droneName) => {
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/${droneName}`).catch((error) => {
-        console.log(error);
-    });
+const getDrone = async (params) => {
+    const response = await axios
+        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
+        .catch((error) => {
+            console.log(error);
+        });
     const page = new JSDOM(response.data);
     const { document } = page.window;
     const name = document.querySelector('.infoboxname').textContent;
     let text = document.querySelector('.infoboxtable').textContent.trim();
-    const description = document.querySelector('.mw-parser-output p').textContent;
+    const description = document.querySelector('.mw-parser-output p')
+        .textContent;
     text = text.replace(name, '');
     text = text.replace(/\(/g, '*(');
     text = text.replace(/\)/g, ')*');

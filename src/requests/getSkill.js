@@ -42,24 +42,34 @@ const formatText = (text) => {
 };
 
 const getSkill = async (params) => {
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/${params.target.name}`).catch((error) => {
-        console.log(`Error accessing url: ${error.config.url}`);
-        return {};
-        // console.log(error);
-    });
+    const response = await axios
+        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
+        .catch((error) => {
+            console.log(`Error accessing url: ${error.config.url}`);
+            return {};
+            // console.log(error);
+        });
     const page = new JSDOM(response.data);
     const { document } = page.window;
     let count = 1;
     let skills = [];
-    let skillbox = document.querySelector(`.skillbox:nth-last-of-type(${count})`);
+    let skillbox = document.querySelector(
+        `.skillbox:nth-last-of-type(${count})`
+    );
     while (skillbox) {
-        skillbox = document.querySelector(`.skillbox:nth-last-of-type(${count})`);
+        skillbox = document.querySelector(
+            `.skillbox:nth-last-of-type(${count})`
+        );
 
         if (skillbox) {
             let sCount = 1;
-            let skill = skillbox.querySelector(`.skill:nth-last-of-type(${sCount})`);
+            let skill = skillbox.querySelector(
+                `.skill:nth-last-of-type(${sCount})`
+            );
             while (skill) {
-                skill = skillbox.querySelector(`.skill:nth-last-of-type(${sCount})`);
+                skill = skillbox.querySelector(
+                    `.skill:nth-last-of-type(${sCount})`
+                );
                 if (skill) {
                     skills.unshift({ skillText: skill.textContent });
                 }

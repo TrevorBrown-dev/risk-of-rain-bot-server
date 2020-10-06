@@ -11,8 +11,10 @@ class Route {
         });
         router.get(`/${route}/:name`, (req, res) => {
             //spell check gets the proper url name for us for the get request to the risk of rain wiki
-            params.target = spellCheck(req.params.name, database[0]);
-            if (params.wikiRoute) params.target = spellCheck(req.params.name, database[1]);
+            //only need the name of the route might remove the .name later
+            params.target = spellCheck(req.params.name, database[0]).name;
+            if (params.wikiRoute)
+                params.target = spellCheck(req.params.name, database[1]).name;
             //Fetch data is pretty much a general form of our get functions in the client, we check what function in fetch data we need to execute based
             //on the route
             fetchData(params).then((data) => {

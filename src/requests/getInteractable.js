@@ -9,18 +9,22 @@ const formatText = (text) => {
     return text;
 };
 
-const getInteractable = async (interactableName) => {
-    console.log(interactableName);
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/${interactableName}`).catch((error) => {
-        // console.log(error);
-    });
+const getInteractable = async (params) => {
+    const response = await axios
+        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
+        .catch((error) => {
+            // console.log(error);
+        });
     const page = new JSDOM(response.data);
     const { document } = page.window;
 
     const name = document.querySelector('.firstHeading').textContent;
-    let description = formatText(document.querySelector('.mw-parser-output p').textContent);
+    let description = formatText(
+        document.querySelector('.mw-parser-output p').textContent
+    );
     let image = '';
-    if (!interactableName.includes('Launch Pads')) image = document.querySelector('.thumbinner img').src;
+    if (!interactableName.includes('Launch Pads'))
+        image = document.querySelector('.thumbinner img').src;
     return {
         name,
         description,

@@ -40,10 +40,12 @@ const formatText = (text) => {
     };
 };
 
-const getMonster = async (monsterName) => {
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/${monsterName}`).catch((error) => {
-        console.log(error);
-    });
+const getMonster = async (params) => {
+    const response = await axios
+        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
+        .catch((error) => {
+            console.log(error);
+        });
     const page = new JSDOM(response.data);
     const { document } = page.window;
 
@@ -55,7 +57,8 @@ const getMonster = async (monsterName) => {
     text = text.replace(name, '');
     text = text.replace(/\(/g, '*(');
     text = text.replace(/\)/g, ')*');
-    const description = document.querySelector('.mw-parser-output p').textContent;
+    const description = document.querySelector('.mw-parser-output p')
+        .textContent;
     const body = formatText(text);
 
     return {
