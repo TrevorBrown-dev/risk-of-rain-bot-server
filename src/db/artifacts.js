@@ -1,4 +1,4 @@
-export const artifacts = [
+export default [
     { name: 'Chaos' },
     { name: 'Command' },
     { name: 'Death' },

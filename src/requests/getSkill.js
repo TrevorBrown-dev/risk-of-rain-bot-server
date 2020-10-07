@@ -1,20 +1,6 @@
 import jsdom from 'jsdom';
 import axios from 'axios';
-import e from 'express';
-
 const { JSDOM } = jsdom;
-/**
- *
- * @param {String} text A string containing all of the text related to a skill
- */
-/*
-     {
-            route: 'skills',
-            target: 'Acrid',
-            wikiRoute: 'survivors',
-  r         reroute: 'Caustic Leap' || null if not single skill
-    }
-*/
 const getSkill = async (params) => {
     // console.log(params);
     const response = await axios.get(`https://riskofrain2.gamepedia.com/${params.target}`).catch((error) => {

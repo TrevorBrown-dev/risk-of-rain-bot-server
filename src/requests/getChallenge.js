@@ -11,23 +11,18 @@ const formatText = (text) => {
 };
 
 const getChallenge = async ({ params }) => {
-    console.log(challengeName);
     //We assume the user did !rchallenge <term>
 
-    const response = await axios
-        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
-        .catch((error) => {
-            console.log(error);
-        });
+    const response = await axios.get(`https://riskofrain2.gamepedia.com/${params.target}`).catch((error) => {
+        console.log(error);
+    });
     const page = new JSDOM(response.data);
     const { document } = page.window;
     const name = document.querySelector('.infoboxname').textContent;
     let text = document.querySelector('.infoboxtable').textContent.trim();
     text = text.replace(name, '');
     text = formatText(text);
-    let description = formatText(
-        document.querySelector('.mw-parser-output p').textContent
-    );
+    let description = formatText(document.querySelector('.mw-parser-output p').textContent);
     const image = document.querySelector('.infoboxtable img').src;
     return {
         name,
