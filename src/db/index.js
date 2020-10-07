@@ -7,5 +7,6 @@ import items from './items';
 import monsters from './monsters';
 import skills from './skills';
 import survivors from './survivors';
+import lores from './lores';
 
-export { artifacts, challenges, drones, environments, interactables, items, monsters, skills, survivors };
+export { artifacts, challenges, drones, environments, interactables, items, monsters, skills, survivors, lores };
