@@ -1,6 +1,6 @@
 import Route from './Route';
 import { items, challenges, monsters, interactables, environments, drones, artifacts, survivors, skills } from '../db';
-export const itemsRoute = new Route({ route: 'items', target: '', database: items }).getRouter();
+export const itemsRoute = new Route({ route: 'items', target: '', database: [items] }).getRouter();
 export const interactablesRoute = new Route({ route: 'interactables', target: '', database: [interactables] }).getRouter();
 export const dronesRoute = new Route({ route: 'drones', target: '', database: [drones] }).getRouter();
 export const artifactsRoute = new Route({ route: 'artifacts', target: '', database: [artifacts] }).getRouter();
