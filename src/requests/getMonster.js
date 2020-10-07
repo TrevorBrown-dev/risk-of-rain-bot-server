@@ -1,72 +1,33 @@
-import jsdom from 'jsdom';
-import axios from 'axios';
-
-const { JSDOM } = jsdom;
-
-const formatText = (text) => {
-    text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
-    const health = 'Health';
-    const healthInfo = text.match(/(?<=Health\n)(.*){1}/);
-    const damage = 'Damage';
-    const damageInfo = text.match(/(?<=Damage\n)(.*){1}/);
-    const speed = 'Speed';
-    const speedInfo = text.match(/(?<=Speed\n)(.*){1}/);
-    const healthRegen = 'Health Regen';
-    const healthRegenInfo = text.match(/(?<=Health Regen\n)(.*){1}/);
-    const armor = 'Armor';
-    const armorInfo = text.match(/(?<=Armor\n)(.*){1}/);
-
-    return {
-        health: {
-            name: health,
-            value: healthInfo ? healthInfo[0] : '',
-        },
-        damage: {
-            name: damage,
-            value: damageInfo ? damageInfo[0] : '',
-        },
-        speed: {
-            name: speed,
-            value: speedInfo ? speedInfo[0] : '',
-        },
-        healthRegen: {
-            name: healthRegen,
-            value: healthRegenInfo ? healthRegenInfo[0] : '',
-        },
-        armor: {
-            name: armor,
-            value: armorInfo ? armorInfo[0] : '',
-        },
-    };
-};
+import wikiRequest from './WikiRequest';
 
 const getMonster = async (params) => {
-    const response = await axios
-        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
-        .catch((error) => {
-            console.log(error);
-        });
-    const page = new JSDOM(response.data);
-    const { document } = page.window;
+    const document = await wikiRequest(params.target);
 
     const name = document.querySelector('.infoboxname').textContent;
-    let text = document.querySelector('.infoboxtable').textContent.trim();
+    const description = document.querySelector('.mw-parser-output p').textContent;
     const image = document.querySelector('.infoboxtable img').src;
+
     let caption = document.querySelector('.infoboxcaption');
     caption = caption ? caption.textContent.trim().replace(/\n+/, '') : '';
-    text = text.replace(name, '');
-    text = text.replace(/\(/g, '*(');
-    text = text.replace(/\)/g, ')*');
-    const description = document.querySelector('.mw-parser-output p')
-        .textContent;
-    const body = formatText(text);
 
+    const table = document.querySelector('.infoboxtable');
+
+    const stats = [];
+    let rows = table.querySelectorAll('tr');
+
+    for (let i = caption ? 3 : 2; i < rows.length; i++) {
+        let cells = rows[i].querySelectorAll('td');
+        stats.push({
+            name: cells[0].textContent,
+            value: cells[1].textContent.replace(/\(/g, '*(').replace(/\)/g, ')*'),
+        });
+    }
     return {
         name,
-        description,
-        caption,
         image,
-        ...body,
+        caption,
+        description,
+        stats,
     };
 };
 

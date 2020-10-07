@@ -1,7 +1,5 @@
-import jsdom from 'jsdom';
-import axios from 'axios';
+import wikiRequest from './WikiRequest';
 
-const { JSDOM } = jsdom;
 const formatText = (text) => {
     text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
     const stage = 'Stage';
@@ -27,17 +25,11 @@ const formatText = (text) => {
     };
 };
 const getEnvironment = async (params) => {
-    const response = await axios
-        .get(`https://riskofrain2.gamepedia.com/${params.target}`)
-        .catch((error) => {
-            console.log(error);
-        });
-    const page = new JSDOM(response.data);
-    const { document } = page.window;
+    const document = await wikiRequest(params.target);
+
     const name = document.querySelector('.infoboxname').textContent;
     let text = document.querySelector('.infoboxtable').textContent.trim();
-    const description = document.querySelector('.mw-parser-output p')
-        .textContent;
+    const description = document.querySelector('.mw-parser-output p').textContent;
     const image = document.querySelector('.infoboxtable img').src;
     let caption = document.querySelector('.infoboxcaption');
     caption = caption ? caption.textContent.trim().replace(/\n+/, '') : '';

@@ -8,10 +8,10 @@ export const monstersRoute = new Route({ route: 'monsters', target: '', database
 export const environmentsRoute = new Route({ route: 'environments', target: '', database: [environments] }).getRouter();
 export const survivorsRoute = new Route({ route: 'survivors', database: [survivors] }).getRouter();
 export const skillsRoute = new Route({ route: 'skills', target: '', wikiRoute: 'survivors', database: [skills, survivors] }).getRouter();
-export const loresRoute = new Route({ route: 'lores', target: '', database: [lores]})
+export const artifactsRoute = new Route({ route: 'artifacts', target: '', database: [artifacts] }).getRouter();
 
 //Route we're working on
-export const artifactsRoute = new Route({ route: 'artifacts', target: '', database: [artifacts] }).getRouter();
+export const loresRoute = new Route({ route: 'lores', target: '', database: [lores] }).getRouter();
 
 const routes = [itemsRoute, dronesRoute, interactablesRoute, artifactsRoute, challengesRoute, monstersRoute, environmentsRoute, survivorsRoute, skillsRoute, loresRoute];
 export default routes;

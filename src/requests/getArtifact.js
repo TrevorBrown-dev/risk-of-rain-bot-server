@@ -1,6 +1,4 @@
-import jsdom from 'jsdom';
-import axios from 'axios';
-const { JSDOM } = jsdom;
+import wikiRequest from './WikiRequest';
 
 const formatText = (text) => {
     text = text.trim();
@@ -13,18 +11,14 @@ const formatText = (text) => {
 };
 
 const getArtifact = async (params) => {
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/Artifacts`).catch((error) => {
-        console.log(`Error accessing url: ${error.config.url}`);
-        return {};
-    });
+    const document = await wikiRequest('Artifacts');
+
     const artifact = {
         image: '',
         title: '',
         description: '',
         password: '',
     };
-    const page = new JSDOM(response.data);
-    const { document } = page.window;
     const table = document.querySelector('.article-table > tbody');
     const rows = table.querySelectorAll('tr');
     for (let row of rows) {

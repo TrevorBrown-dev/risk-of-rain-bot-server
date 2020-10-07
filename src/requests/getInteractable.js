@@ -1,6 +1,5 @@
 import jsdom from 'jsdom';
-import axios from 'axios';
-const { JSDOM } = jsdom;
+import wikiRequest from './WikiRequest';
 
 const formatText = (text) => {
     text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
@@ -10,11 +9,7 @@ const formatText = (text) => {
 };
 
 const getInteractable = async (params) => {
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/${params.target}`).catch((error) => {
-        // console.log(error);
-    });
-    const page = new JSDOM(response.data);
-    const { document } = page.window;
+    const document = await wikiRequest(params.target);
 
     const name = document.querySelector('.firstHeading').textContent;
     let description = formatText(document.querySelector('.mw-parser-output p').textContent);

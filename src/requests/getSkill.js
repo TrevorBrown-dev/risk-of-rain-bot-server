@@ -1,16 +1,8 @@
-import jsdom from 'jsdom';
-import axios from 'axios';
-const { JSDOM } = jsdom;
+import wikiRequest from './WikiRequest';
 const getSkill = async (params) => {
-    // console.log(params);
-    const response = await axios.get(`https://riskofrain2.gamepedia.com/${params.target}`).catch((error) => {
-        console.log(`Error accessing url: ${error.config.url}`);
-        return {};
-    });
-    const page = new JSDOM(response.data);
-    const { document } = page.window;
-    const skillTables = document.querySelectorAll('table.wikitable.skill');
+    const document = await wikiRequest(params.target);
 
+    const skillTables = document.querySelectorAll('table.wikitable.skill');
     const pageContent = {
         reroute: params.reroute,
         survivor: params.target,
