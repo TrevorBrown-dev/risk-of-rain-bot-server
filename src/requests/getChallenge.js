@@ -10,7 +10,7 @@ const formatText = (text) => {
     return text;
 };
 
-const getChallenge = async ({ params }) => {
+const getChallenge = async (params) => {
     //We assume the user did !rchallenge <term>
 
     const response = await axios.get(`https://riskofrain2.gamepedia.com/${params.target}`).catch((error) => {

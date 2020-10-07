@@ -34,7 +34,6 @@ const getArtifact = async (params) => {
         for (let heading of headings) {
             if (heading.textContent.includes(params.target)) {
                 //We have found the right artifact do stuff with THIS row.
-                console.log(row.textContent);
                 const tableCells = row.querySelectorAll('td');
                 //First cell is title,
                 //second cell is description
