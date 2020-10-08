@@ -1,10 +1,11 @@
-import wikiRequest from './WikiRequest';
+import wikiRequest from './wikiRequest';
 
 const getDrone = async (params) => {
     const document = await wikiRequest(params.target);
 
     const name = document.querySelector('.infoboxname').textContent;
-    const description = document.querySelector('.mw-parser-output p').textContent;
+    const description = document.querySelector('.mw-parser-output p')
+        .textContent;
     const image = document.querySelector('.infoboxtable img').src;
     const table = document.querySelector('.infoboxtable');
 
@@ -15,7 +16,9 @@ const getDrone = async (params) => {
         {
             stats.push({
                 name: cells[0].textContent,
-                value: cells[1].textContent.replace(/\(/g, '*(').replace(/\)/g, ')*'),
+                value: cells[1].textContent
+                    .replace(/\(/g, '*(')
+                    .replace(/\)/g, ')*'),
             });
         }
     }

@@ -1,4 +1,4 @@
-import wikiRequest from './WikiRequest';
+import wikiRequest from './wikiRequest';
 
 const formatText = (text) => {
     text = text.replace('Unlock', '**Unlock:**');
@@ -15,7 +15,9 @@ const getChallenge = async (params) => {
     let text = document.querySelector('.infoboxtable').textContent.trim();
     text = text.replace(name, '');
     text = formatText(text);
-    let description = formatText(document.querySelector('.mw-parser-output p').textContent);
+    let description = formatText(
+        document.querySelector('.mw-parser-output p').textContent
+    );
     const image = document.querySelector('.infoboxtable img').src;
     return {
         name,

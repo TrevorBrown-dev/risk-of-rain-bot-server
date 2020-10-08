@@ -1,10 +1,11 @@
-import wikiRequest from './WikiRequest';
+import wikiRequest from './wikiRequest';
 
 const getMonster = async (params) => {
     const document = await wikiRequest(params.target);
 
     const name = document.querySelector('.infoboxname').textContent;
-    const description = document.querySelector('.mw-parser-output p').textContent;
+    const description = document.querySelector('.mw-parser-output p')
+        .textContent;
     const image = document.querySelector('.infoboxtable img').src;
 
     let caption = document.querySelector('.infoboxcaption');
@@ -19,7 +20,9 @@ const getMonster = async (params) => {
         let cells = rows[i].querySelectorAll('td');
         stats.push({
             name: cells[0].textContent,
-            value: cells[1].textContent.replace(/\(/g, '*(').replace(/\)/g, ')*'),
+            value: cells[1].textContent
+                .replace(/\(/g, '*(')
+                .replace(/\)/g, ')*'),
         });
     }
     return {

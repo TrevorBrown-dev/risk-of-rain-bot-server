@@ -1,4 +1,4 @@
-import wikiRequest from './WikiRequest';
+import wikiRequest from './wikiRequest';
 
 const formatText = (text) => {
     text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
@@ -29,7 +29,8 @@ const getEnvironment = async (params) => {
 
     const name = document.querySelector('.infoboxname').textContent;
     let text = document.querySelector('.infoboxtable').textContent.trim();
-    const description = document.querySelector('.mw-parser-output p').textContent;
+    const description = document.querySelector('.mw-parser-output p')
+        .textContent;
     const image = document.querySelector('.infoboxtable img').src;
     let caption = document.querySelector('.infoboxcaption');
     caption = caption ? caption.textContent.trim().replace(/\n+/, '') : '';

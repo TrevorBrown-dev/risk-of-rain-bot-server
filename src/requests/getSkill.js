@@ -1,4 +1,4 @@
-import wikiRequest from './WikiRequest';
+import wikiRequest from './wikiRequest';
 const getSkill = async (params) => {
     const document = await wikiRequest(params.target);
 
@@ -15,7 +15,9 @@ const getSkill = async (params) => {
             if (row.querySelector('th.skillrow')) {
                 skillRows.push({
                     name: row.querySelector('th').textContent,
-                    value: row.querySelector('td').textContent.replace(/\[ .* \]/, ' '),
+                    value: row
+                        .querySelector('td')
+                        .textContent.replace(/\[ .* \]/, ' '),
                 });
             }
         }
@@ -24,7 +26,9 @@ const getSkill = async (params) => {
 
         pageContent.skills.push({
             image,
-            heading: skillTable.querySelector('th').textContent.replace(/\n+/, ''),
+            heading: skillTable
+                .querySelector('th')
+                .textContent.replace(/\n+/, ''),
             skillRows,
         });
     }
