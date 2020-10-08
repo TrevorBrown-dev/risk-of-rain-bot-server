@@ -5,7 +5,7 @@
     "main": "server.js",
     "scripts": {
         "dev": "concurrently \"npm run babel\" \"nodemon ./lib/server.js\"",
-        "build": "babel src -d lib",
+        "build": "npm run clean",
         "clean": "rm -rf ./lib && npm run build",
         "babel": "babel src -d lib -w"
     },
