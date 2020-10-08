@@ -1,5 +1,5 @@
-import getArtifact from './getArtifact';
-import { getDrone, getEnvironment, getInteractable, getItem, getMonster, getSurvivor, getChallenge, getSkill } from './index';
+
+import {getArtifact, getDrone, getEnvironment, getInteractable, getItem, getMonster, getSurvivor, getChallenge, getSkill, getLore } from './index';
 const fetchData = async (params) => {
     switch (params.route) {
         case 'items':
@@ -20,6 +20,8 @@ const fetchData = async (params) => {
             return await getSkill(params);
         case 'artifacts':
             return await getArtifact(params);
+            case 'lores':
+                return await getLore(params);
     }
 };
 

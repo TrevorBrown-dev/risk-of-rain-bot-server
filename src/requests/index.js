@@ -7,5 +7,6 @@ import getInteractable from './getInteractable';
 import getChallenge from './getChallenge';
 import getSkill from './getSkill';
 import getArtifact from './getArtifact';
+import getLore from './getLore';
 
-export { getItem, getMonster, getSurvivor, getEnvironment, getInteractable, getDrone, getChallenge, getSkill, getArtifact };
+export { getItem, getMonster, getSurvivor, getEnvironment, getInteractable, getDrone, getChallenge, getSkill, getArtifact, getLore };

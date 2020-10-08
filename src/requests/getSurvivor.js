@@ -1,6 +1,6 @@
 import wikiRequest from './wikiRequest';
 
-const formatText = (text) => {
+const formatText = (text, unlockLink) => {
     const props = [];
     text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
 
@@ -34,7 +34,9 @@ const formatText = (text) => {
     if (speedInfo) props.push({ name: speed, value: speedInfo[0] });
     if (healthRegenInfo) props.push({ name: healthRegen, value: healthRegenInfo[0] });
     if (armorInfo) props.push({ name: armor, value: armorInfo[0] });
-    if (unlockInfo) props.push({ name: unlock, value: unlockInfo[0] });
+    if (unlockInfo) props.push({
+        name: unlock, value: `[${unlockInfo[0]}](${`https://riskofrain2.gamepedia.com${unlockLink}`})`
+    });
     if (umbraTitleInfo) props.push({ name: umbraTitle, value: `*${umbraTitleInfo[0]}*` });
     if (endingPhraseInfo) props.push({ name: endingPhrase, value: `*${endingPhraseInfo[0]}*` });
 
@@ -46,11 +48,14 @@ const getSurvivor = async (params) => {
     const name = document.querySelector('.infoboxname').textContent;
     const image = document.querySelector('.infoboxtable img').src;
     const description = document.querySelector('.infoboxdesc').textContent;
-    let text = document.querySelector('.infoboxtable').textContent.trim();
+    const table = document.querySelector('.infoboxtable')
+    let unlockLink = table.querySelector('a[title]')
+    unlockLink = (unlockLink) ? unlockLink.href : '';
+    let text = table.textContent.trim();
     text = text.replace(name, '');
     text = text.replace(/\(/g, '*(');
     text = text.replace(/\)/g, ')*');
-    const body = formatText(text);
+    const body = formatText(text, unlockLink);
 
     return {
         name,
