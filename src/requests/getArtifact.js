@@ -1,4 +1,4 @@
-import wikiRequest from './WikiRequest';
+import wikiRequest from './wikiRequest';
 
 const formatText = (text) => {
     text = text.trim();
