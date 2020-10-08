@@ -1,58 +1,44 @@
 import wikiRequest from './wikiRequest';
 
 const formatText = (text) => {
+    const props = [];
     text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
-    const health = 'Health';
-    const healthInfo = text.match(/(?<=Health\n)(.*){1}/);
-    const damage = 'Damage';
-    const damageInfo = text.match(/(?<=Damage\n)(.*){1}/);
-    const speed = 'Speed';
-    const speedInfo = text.match(/(?<=Speed\n)(.*){1}/);
-    const healthRegen = 'Health Regen';
-    const healthRegenInfo = text.match(/(?<=Health Regen\n)(.*){1}/);
-    const armor = 'Armor';
-    const armorInfo = text.match(/(?<=Armor\n)(.*){1}/);
-    const unlock = 'Unlock';
-    const unlockInfo = text.match(/(?<=Unlock\n)(.*){1}/);
-    const umbraTitle = 'Umbra Title';
-    const umbraTitleInfo = text.match(/(?<=Umbra Title\n\n)(.*){1}/);
-    const endingPhrase = 'Ending Phrase';
-    const endingPhraseInfo = text.match(/(?<=Ending Phrase\n\n)(.*){1}/);
 
-    return {
-        health: {
-            name: health,
-            value: healthInfo ? healthInfo[0] : '',
-        },
-        damage: {
-            name: damage,
-            value: damageInfo ? damageInfo[0] : '',
-        },
-        speed: {
-            name: speed,
-            value: speedInfo ? speedInfo[0] : '',
-        },
-        healthRegen: {
-            name: healthRegen,
-            value: healthRegenInfo ? healthRegenInfo[0] : '',
-        },
-        armor: {
-            name: armor,
-            value: armorInfo ? armorInfo[0] : '',
-        },
-        unlock: {
-            name: unlock,
-            value: unlockInfo ? unlockInfo[0] : '',
-        },
-        umbraTitle: {
-            name: umbraTitle,
-            value: umbraTitleInfo ? umbraTitleInfo[0] : '',
-        },
-        endingPhrase: {
-            name: endingPhrase,
-            value: endingPhraseInfo ? endingPhraseInfo[0] : '',
-        },
-    };
+    const healthInfo = text.match(/(?<=Health\n)(.*){1}/);
+    const health = 'Health';
+
+    const damageInfo = text.match(/(?<=Damage\n)(.*){1}/);
+    const damage = 'Damage';
+
+    const speedInfo = text.match(/(?<=Speed\n)(.*){1}/);
+    const speed = 'Speed';
+    
+    const healthRegenInfo = text.match(/(?<=Health Regen\n)(.*){1}/);
+    const healthRegen = 'Health Regen';
+    
+    const armorInfo = text.match(/(?<=Armor\n)(.*){1}/);
+    const armor = 'Armor';
+    
+    const unlockInfo = text.match(/(?<=Unlock\n)(.*){1}/);
+    const unlock = 'Unlock';
+    
+    const umbraTitleInfo = text.match(/(?<=Umbra Title\n\n)(.*){1}/);
+    const umbraTitle = 'Umbra Title';
+    
+    const endingPhraseInfo = text.match(/(?<=Ending Phrase\n\n)(.*){1}/);
+    const endingPhrase = 'Ending Phrase';
+
+    
+    if (healthInfo) props.push({ name: health, value: healthInfo[0] });
+    if (damageInfo) props.push({ name: damage, value: damageInfo[0] });
+    if (speedInfo) props.push({ name: speed, value: speedInfo[0] });
+    if (healthRegenInfo) props.push({ name: healthRegen, value: healthRegenInfo[0] });
+    if (armorInfo) props.push({ name: armor, value: armorInfo[0] });
+    if (unlockInfo) props.push({ name: unlock, value: unlockInfo[0] });
+    if (umbraTitleInfo) props.push({ name: umbraTitle, value: `*${umbraTitleInfo[0]}*` });
+    if (endingPhraseInfo) props.push({ name: endingPhrase, value: `*${endingPhraseInfo[0]}*` });
+
+    return props;   
 };
 const getSurvivor = async (params) => {
     const document = await wikiRequest(params.target);
@@ -70,7 +56,7 @@ const getSurvivor = async (params) => {
         name,
         description,
         image,
-        ...body,
+        body,
     };
 };
 
