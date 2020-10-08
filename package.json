@@ -4,6 +4,7 @@
     "description": "",
     "main": "server.js",
     "scripts": {
+        "start": "node ./lib/server.js",
         "dev": "concurrently \"npm run babel\" \"nodemon ./lib/server.js\"",
         "build": "npm run clean",
         "clean": "rm -rf ./lib && npm run build",
