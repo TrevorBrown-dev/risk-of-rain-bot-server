@@ -1,28 +1,23 @@
 import wikiRequest from './wikiRequest';
 
-const formatText = (text) => {
-    text = text.replace('Unlock', '**Unlock:**');
-    text = text.trim().replace(/(\r\n|\n|\r){2,}/gm, '\n\n');
-    text = text.replace(/\(/g, '*(').replace(/\)/g, ')*');
-    text = text;
-    return text;
-};
-
 const getChallenge = async (params) => {
     const document = await wikiRequest(params.target);
 
     const name = document.querySelector('.infoboxname').textContent;
-    let text = document.querySelector('.infoboxtable').textContent.trim();
-    text = text.replace(name, '');
-    text = formatText(text);
-    let description = formatText(
-        document.querySelector('.mw-parser-output p').textContent
-    );
-    const image = document.querySelector('.infoboxtable img').src;
+    const table = document.querySelector('.infoboxtable');
+    const rows = table.querySelectorAll('tr');
+    const title = rows[0].textContent.trim().replace(/\n+/g, '');
+    const description = rows[2].querySelector('td').textContent;
+    const image = rows[1].querySelector('img').src;
+    const unlock = { name: 'Unlocks', value: rows[3].querySelectorAll('td')[1].textContent.replace(/\n+/g, '') };
+    console.log(unlock);
+    
+    
     return {
-        name,
+        title,
         image,
-        text,
+        description,
+        unlock,
     };
 };
 
