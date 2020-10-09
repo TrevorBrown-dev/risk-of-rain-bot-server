@@ -10,7 +10,6 @@ const getChallenge = async (params) => {
     const description = rows[2].querySelector('td').textContent;
     const image = rows[1].querySelector('img').src;
     const unlock = { name: 'Unlocks', value: rows[3].querySelectorAll('td')[1].textContent.replace(/\n+/g, '') };
-    console.log(unlock);
     
     
     return {
